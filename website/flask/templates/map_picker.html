@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .map-picker-page {
+        text-align: center;
+        margin: 30px auto;
+        max-width: 1000px;
+    }
+
+    .map-picker-page h1, .map-picker-page p {
+        color: white;
+    }
+
+    #canvas-container {
+        position: relative;
+        margin: 20px auto;
+    }
+
+    #map-canvas {
+        border: 1px solid white;
+    }
+
+    .point {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: red;
+        transform: translate(-50%, -50%);
+    }
+
+    .link {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .link:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    input, button, textarea {
+        display: block;
+        margin: 10px auto;
+    }
+</style>
+
+<div class="map-picker-page">
+    <h1>Upload a Map</h1>
+    <p>Upload a map and click to select points. Then copy coordinates and click on Move to Simulation</p>
+    <input type="file" id="image-upload" accept="image/*">
+    <div id="canvas-container">
+        <canvas id="map-canvas"></canvas>
+    </div>
+    <button id="copy-coordinates">Copy Coordinates</button>
+    <textarea id="coordinates-output" rows="10" cols="50" readonly></textarea>
+    <a href="https://openprocessing.org/sketch/2282946" target="_blank" class="link">Go to Simulation</a>
+</div>
+
+<script>
+    const imageUpload = document.getElementById('image-upload');
+    const canvas = document.getElementById('map-canvas');
+    const ctx = canvas.getContext('2d');
+    const copyButton = document.getElementById('copy-coordinates');
+    const coordinatesOutput = document.getElementById('coordinates-output');
+    let coordinates = [];
+
+    imageUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            coordinates = []; // Reset coordinates when a new image is uploaded
+        };
+    });
+
+    canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        coordinates.push({ x, y });
+        drawPoint(x, y);
+    });
+
+    copyButton.addEventListener('click', () => {
+        const dimensions = `(${canvas.width} x ${canvas.height})`;
+        const points = coordinates.map(coord => `(${coord.x},${coord.y})`).join(' ');
+        coordinatesOutput.value = `${dimensions} ${points}`;
+        coordinatesOutput.select();
+        document.execCommand('copy');
+    });
+
+    function drawPoint(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+    }
+</script>
+{% endblock %}

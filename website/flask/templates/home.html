@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .home-page {
+        text-align: center;
+        margin: 30px auto;
+        max-width: 1000px;
+    }
+
+    .home-page h1, .home-page h2, .home-page p {
+        color: white;
+    }
+
+    .home-page ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .home-page li {
+        margin: 10px 0;
+    }
+
+    .link {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .link:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+</style>
+<div class="home-page">
+    <p>Slime mold agents have emerged as fascinating models for studying navigation and optimization in complex environments. Inspired by the behavior of the slime mold *Physarum polycephalum*, these agents simulate the organism's ability to find the most efficient paths between food sources, even in the presence of obstacles. Researchers have harnessed this natural intelligence to develop algorithms that mimic slime mold's decentralized and adaptive foraging strategies. These bio-inspired algorithms are particularly effective in applications requiring robust and efficient pathfinding, such as urban planning, network optimization, and autonomous robotics. By observing how slime mold agents navigate mazes and dynamically adjust their paths, scientists gain valuable insights into collective behavior and distributed problem-solving, potentially leading to innovative solutions for navigating complex systems in both natural and artificial contexts.</p>
+    <h2>Applications</h2>
+    <ul>
+        <li>Navigation</li>
+        <p>The slime mold algorithm, inspired by the behavior of Physarum polycephalum, has found remarkable applications in navigation and pathfinding. This bio-inspired algorithm mimics the mold's ability to discover efficient routes through complex environments. Its decentralized and adaptive approach makes it ideal for urban planning, network optimization, and autonomous robotics. By observing how slime mold navigates mazes and adjusts paths dynamically, researchers have developed algorithms that efficiently solve navigation problems. This innovative approach enhances route planning, traffic management, and resource allocation, demonstrating the potential of natural systems to inspire advanced technological solutions for real-world challenges.</p>
+        <li>Control of swarm robots</li>
+        <p>Inspired by the behavior of *Physarum polycephalum*, the slime mold algorithm offers an innovative approach to controlling swarm robots. By mimicking the mold's ability to find optimal paths and adapt to dynamic environments, the algorithm allows swarm robots to navigate efficiently and collaborate effectively. This decentralized method enhances the robots' capabilities in tasks such as search and rescue, environmental monitoring, and precision agriculture. The natural efficiency and resilience of the slime mold algorithm make it an excellent tool for coordinating swarm behavior, leading to significant advancements in robotic systems for real-world applications.</p>
+        <!-- Add more applications as needed -->
+    </ul>
+    <h2>Simulations</h2>
+    <a href="{{ url_for('map_picker') }}" class="link">Pick a Map and Start Simulation</a>
+    <a href="https://openprocessing.org/sketch/2311501" target="_blank" class="link">Navigation Simulation</a>
+</div>
+{% endblock %}
